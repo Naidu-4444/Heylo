@@ -21,6 +21,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", msgRoutes);
 
 app.listen(process.env.PORT, () => {
-  console.log("Server running on the port:" + process.env.PORT);
+  console.log("Server running on the port: " + process.env.PORT);
   connectDB();
 });
