@@ -61,15 +61,6 @@ const Navbar = ({
                       Profile
                     </Link>
                   </li>
-                  <li>
-                    <Link
-                      to="/settings"
-                      className="hover:bg-base-200 rounded-md flex items-center gap-2 px-2 py-2"
-                    >
-                      <Settings className="size-4" />
-                      Settings
-                    </Link>
-                  </li>
 
                   <div className="divider my-2"></div>
 
