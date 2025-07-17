@@ -3,16 +3,19 @@ import { useEffect, useState } from "react";
 import { Users } from "lucide-react";
 import { useChatStore } from "../store/useChatStore";
 import SidebarSkeleton from "./skeletons/SidebarSkeleton";
+import { useAuthStore } from "../store/useAuthStore";
 
 const Sidebar = () => {
   const { getUsers, users, selectedUser, setSelectedUser, isUserLoading } =
     useChatStore();
-  const onlineUsers: string | any[] = [];
-
+  const { onlineUsers } = useAuthStore();
+  const [showOnlineUsers, setShowOnlineUsers] = useState(false);
   useEffect(() => {
     getUsers();
   }, [getUsers]);
-
+  const filteredusers = showOnlineUsers
+    ? users.filter((user) => onlineUsers.includes(user._id))
+    : users;
   if (isUserLoading) return <SidebarSkeleton />;
 
   return (
@@ -22,11 +25,24 @@ const Sidebar = () => {
           <Users className="size-6" />
           <span className="font-medium hidden lg:block">Contacts</span>
         </div>
-        {/* TODO: Online filter toggle */}
+        <div className="mt-3 hidden lg:flex items-center gap-2">
+          <label className="cursor-pointer flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={showOnlineUsers}
+              onChange={(e) => setShowOnlineUsers(e.target.checked)}
+              className="checkbox checkbox-sm"
+            />
+            <span className="text-sm">Show online only</span>
+          </label>
+          <span className="text-xs text-zinc-500">
+            ({onlineUsers.length - 1} online)
+          </span>
+        </div>
       </div>
 
       <div className="overflow-y-auto w-full py-3">
-        {users.map((user) => (
+        {filteredusers.map((user) => (
           <button
             key={user._id}
             onClick={() => setSelectedUser(user)}
@@ -53,8 +69,6 @@ const Sidebar = () => {
                 />
               )}
             </div>
-
-            {/* User info - only visible on larger screens */}
             <div className="hidden lg:block text-left min-w-0">
               <div className="font-medium truncate">{user.fullName}</div>
               <div className="text-sm text-zinc-400">

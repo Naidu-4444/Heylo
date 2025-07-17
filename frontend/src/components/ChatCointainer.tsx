@@ -7,19 +7,32 @@ import Messageinput from "./Message-input.tsx";
 import MsgSkeleton from "./skeletons/MsgSkeleton.tsx";
 
 const ChatContainer = () => {
-  const { messages, getMessages, selectedUser, isMessageLoading } =
-    useChatStore();
-
+  const {
+    messages,
+    getMessages,
+    selectedUser,
+    isMessageLoading,
+    subscribeToMessages,
+    unsubscribeToMessages,
+  } = useChatStore();
   const { authUser } = useAuthStore();
   const messageEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (selectedUser) {
       getMessages(selectedUser._id);
+      subscribeToMessages();
     }
-  }, [selectedUser?._id, getMessages]);
+    return () => {
+      unsubscribeToMessages();
+    };
+  }, [
+    selectedUser?._id,
+    getMessages,
+    subscribeToMessages,
+    unsubscribeToMessages,
+  ]);
 
-  console.log(messages);
   useEffect(() => {
     if (messageEndRef.current && messages) {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
