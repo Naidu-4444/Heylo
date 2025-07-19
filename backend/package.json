@@ -22,14 +22,14 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.2",
-    "socket.io": "^4.8.1"
+    "socket.io": "^4.8.1",
+    "tsup": "^8.5.0"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.9",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.0.12",
-    "tsup": "^8.5.0",
     "typescript": "^5.8.3"
   }
 }
