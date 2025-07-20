@@ -143,7 +143,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     const { authUser, socket } = get();
     if (!authUser || socket?.connected) return;
 
-    const newsocket = io(import.meta.env.VITE_API_BASE_URL, {
+    const newsocket = io(import.meta.env.VITE_SOCKET_URL, {
       autoConnect: false,
       query: { userId: authUser._id },
     });
