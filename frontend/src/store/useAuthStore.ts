@@ -22,8 +22,6 @@ type AuthStore = {
   disconnectsocket: () => void;
 };
 
-const BASE_URL = "http://localhost:5000";
-
 export async function handleApiRequest<T>(
   apiCall: () => Promise<T>,
   setLoading: (loading: boolean) => void,
@@ -145,7 +143,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     const { authUser, socket } = get();
     if (!authUser || socket?.connected) return;
 
-    const newsocket = io(BASE_URL, {
+    const newsocket = io(import.meta.env.VITE_API_BASE_URL, {
       autoConnect: false,
       query: { userId: authUser._id },
     });

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { LogOut, Moon, Settings, Sun, User } from "lucide-react";
+import { LogOut, Moon, Sun, User } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 
 const Navbar = ({
